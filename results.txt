@@ -1,0 +1,41 @@
+--- DATA BATCH FROM DIR: Grading from projection ---
+Grading from projection | openai_gpt-5_biology_4_web_disabled.txt                      | 6.25      
+Grading from projection | openai_gpt-5_biology_4_web_disabled.txt_clean                | 6.25      
+Grading from projection | openai_gpt-5_biology_4_web_enabled.txt                       | 7.41      
+Grading from projection | openai_gpt-5_biology_4_web_enabled.txt_clean                 | 6.9       
+Grading from projection | openai_gpt-5_biology_5_web_disabled.txt                      | 6.0       
+Grading from projection | openai_gpt-5_biology_5_web_disabled.txt_clean                | 5.5       
+Grading from projection | openai_gpt-5_biology_5_web_enabled.txt                       | 6.0       
+Grading from projection | openai_gpt-5_biology_5_web_enabled.txt_clean                 | 4.83      
+Grading from projection | openai_gpt-5_chemistry_2_web_disabled.txt                    | 6.0       
+Grading from projection | openai_gpt-5_chemistry_2_web_disabled.txt_clean              | 7.4       
+Grading from projection | openai_gpt-5_chemistry_2_web_enabled.txt                     | 8         
+Grading from projection | openai_gpt-5_chemistry_2_web_enabled.txt_clean               | 8         
+Grading from projection | openai_gpt-5_chemistry_3_web_disabled.txt                    | 2         
+Grading from projection | openai_gpt-5_chemistry_3_web_disabled.txt_clean              | 2         
+Grading from projection | openai_gpt-5_chemistry_3_web_enabled.txt                     | 2         
+Grading from projection | openai_gpt-5_chemistry_3_web_enabled.txt_clean               | 1.0       
+Grading from projection | openai_gpt-5_physics_0_web_disabled.txt                      | 3.875     
+Grading from projection | openai_gpt-5_physics_0_web_disabled.txt_clean                | 4.0       
+Grading from projection | openai_gpt-5_physics_0_web_enabled.txt                       | 3.5625    
+Grading from projection | openai_gpt-5_physics_0_web_enabled.txt_clean                 | 3.125     
+Grading from projection | openai_gpt-5_physics_1_web_disabled.txt                      | 4.5       
+Grading from projection | openai_gpt-5_physics_1_web_disabled.txt_clean                | 2.5       
+Grading from projection | openai_gpt-5_physics_1_web_enabled.txt                       | 7.0       
+Grading from projection | openai_gpt-5_physics_1_web_enabled.txt_clean                 | 3.0       
+Grading from projection | openai_gpt-5_physics_30.txt                                  | 0         
+Grading from projection | openai_gpt-5_physics_30.txt_clean                            | 0         
+
+--- DATA BATCH FROM DIR: Grading default ---
+Grading default      | high_reasoning_openai_gpt-5_biology_4_web_disabled.txt       | 7.75      
+Grading default      | high_reasoning_openai_gpt-5_biology_4_web_enabled.txt        | 6.91      
+Grading default      | high_reasoning_openai_gpt-5_biology_5_web_disabled.txt       | 6.5       
+Grading default      | high_reasoning_openai_gpt-5_biology_5_web_enabled.txt        | 4.5       
+Grading default      | high_reasoning_openai_gpt-5_chemistry_2_web_disabled.txt     | 6.0       
+Grading default      | high_reasoning_openai_gpt-5_chemistry_2_web_enabled.txt      | 7.0       
+Grading default      | high_reasoning_openai_gpt-5_chemistry_3_web_disabled.txt     | 6.5       
+Grading default      | high_reasoning_openai_gpt-5_chemistry_3_web_enabled.txt      | 2.5       
+Grading default      | high_reasoning_openai_gpt-5_physics_0_web_disabled.txt       | 6.0       
+Grading default      | high_reasoning_openai_gpt-5_physics_0_web_enabled.txt        | 3.5       
+Grading default      | high_reasoning_openai_gpt-5_physics_1_web_disabled.txt       | 7.5       
+Grading default      | high_reasoning_openai_gpt-5_physics_1_web_enabled.txt        | 5.5       
