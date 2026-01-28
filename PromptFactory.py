@@ -49,12 +49,35 @@ class PromptFactory:
         return f"{PROBLEM_PROJECTION_PREFIX.format(problem_dict['subject'])} \n{problem}"
 
     @staticmethod
+    def get_projection_answer_prompt():
+        return PROJECTION_ANSWERING_PREFIX
+
+    # new chat
+    @staticmethod
     def get_reprojection_prompt(projected_answer):
         return f"{PROBLEM_REPROJECTION_PREFIX} {projected_answer}"
 
-    @staticmethod
-    def get_projection_answer_prompt():
-        return PROJECTION_ANSWERING_PREFIX
+
+
+
+import json
+
+
+
+
+test_json_path = "test.json"
+
+with open(test_json_path, "r", encoding="utf-8") as f:
+    problem_dicts = [json.loads(line) for line in f if line.strip()]
+
+
+prompt = PromptFactory.get_projection_prompt(problem_dicts[30])
+print(prompt)
+prompt = PromptFactory.get_projection_answer_prompt()
+
+# projected_answer = open("question_index_30/ours_runs/same_claude_chat/projected_pipeline_run_1.txt", encoding="utf-8").read()
+# prompt = PromptFactory.get_reprojection_prompt(projected_answer)
+# print(prompt)
 
 
 
