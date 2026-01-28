@@ -41,7 +41,7 @@ with open("test.json", "r", encoding="utf-8") as f:
 
 
 
-def grade_answer_from_file(fname, problem_d):
+def grade_answer_from_file(fname, problem_d, save_prefix):
     from pathlib import Path
     filename = Path(fname).name
     with open(fname, encoding="utf-8") as f:
@@ -49,8 +49,8 @@ def grade_answer_from_file(fname, problem_d):
         full_problem = problem_d["problem"]
         problem = clean_problem(full_problem)
         rubric = problem_d["answer"]
-        default_grade_save_path = os.path.join("Responses", "Grading from files", f"high_reasoning_{filename}")
-        default_grade_full_chat_path = os.path.join("FullChats", f"file_grading_{filename}")
+        default_grade_save_path = os.path.join("Responses", "Grading from files", f"{save_prefix}_high_reasoning_{filename}")
+        default_grade_full_chat_path = os.path.join("FullChats", f"{save_prefix}_file_grading_{filename}")
         grade_answer_high_reasoning(problem, answer, rubric, default_grade_save_path,
                                     default_grade_full_chat_path)
 
@@ -294,6 +294,12 @@ def sample_different_problem_types(n, problems):
     return problems_to_return
 
 
+def grade_answers_from_directory(dir_name, problem_d, save_prefix):
+    for file in os.listdir(dir_name):
+        file_path = os.path.join(dir_name, file)
+        print(f"starting with file {file_path}")
+        grade_answer_from_file(file_path, problem_d, save_prefix)
+
 # 1. Setup your session (Change "openai" to "claude" or "gemini" as needed)
 
 # 2. Start the conversation
@@ -309,20 +315,22 @@ options = [ ("anthropic", "claude-opus-4-5-20251101", True),
 options = [ ("openai", "gpt-5.2", True)]
 
 
+
+
 api_key=os.environ.get("OPENAI_API_KEY")
 
 chem_problem = problems[30]
-web_answer_path = os.path.join("WebAnswers", "chemistry_30.txt")
-grade_answer_from_file(web_answer_path, chem_problem)
+
+
 
 model = "claude-opus-4-5-20251101"
 provider = "anthropic"
 
-for i in range(5):
-    print(f"Starting with #{i}")
-    full_pipeline(chem_problem,  i+id_start, provider =provider, model_name=model, grade_projected=True, grade_reprojected=True,
-                  grade_regular=False, keep_chat=True, clean_chat=True, api_key=api_key, web_enabled=True, force_search = True)
-    print(f"Finished with #{i}")
+# for i in range(5):
+#     print(f"Starting with #{i}")
+#     full_pipeline(chem_problem,  i+id_start, provider =provider, model_name=model, grade_projected=True, grade_reprojected=True,
+#                   grade_regular=False, keep_chat=True, clean_chat=True, api_key=api_key, web_enabled=True, force_search = True)
+#     print(f"Finished with #{i}")
 
 
 # for option in options:
