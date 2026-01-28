@@ -55,6 +55,7 @@ def grade_answer_from_file(fname, problem_d):
                                     default_grade_full_chat_path)
 
 def get_and_save_response(chat, prompt, save_path, force_search = False):
+    time.sleep(100)
     response = chat.send_message(prompt, force_search=force_search)
     with open(save_path, "w", encoding="utf-8") as f:
         f.write(response)
@@ -297,7 +298,7 @@ def sample_different_problem_types(n, problems):
 
 # 2. Start the conversation
 type_to_id = {"physics" :0, "chemistry":0, "biology":0}
-id_start = 30
+id_start = 100
 
 sampled_problems = sample_different_problem_types(2, problems)
 # ,
@@ -313,6 +314,16 @@ api_key=os.environ.get("OPENAI_API_KEY")
 chem_problem = problems[30]
 web_answer_path = os.path.join("WebAnswers", "chemistry_30.txt")
 grade_answer_from_file(web_answer_path, chem_problem)
+
+model = "claude-opus-4-5-20251101"
+provider = "anthropic"
+
+for i in range(5):
+    print(f"Starting with #{i}")
+    full_pipeline(chem_problem,  i+id_start, provider =provider, model_name=model, grade_projected=True, grade_reprojected=True,
+                  grade_regular=False, keep_chat=True, clean_chat=True, api_key=api_key, web_enabled=True, force_search = True)
+    print(f"Finished with #{i}")
+
 
 # for option in options:
 #     web_enables = option[2]
