@@ -72,12 +72,12 @@ with open(test_json_path, "r", encoding="utf-8") as f:
 
 
 prompt = PromptFactory.get_projection_prompt(problem_dicts[30])
-print(prompt)
+# print(prompt)
 prompt = PromptFactory.get_projection_answer_prompt()
-
-# projected_answer = open("question_index_30/ours_runs/same_claude_chat/projected_pipeline_run_1.txt", encoding="utf-8").read()
-# prompt = PromptFactory.get_reprojection_prompt(projected_answer)
 # print(prompt)
 
+projected_answer = open("question_index_30/ours_runs/same_claude_chat/projected_pipeline_run_5.txt", encoding="utf-8").read()
+prompt = PromptFactory.get_reprojection_prompt(projected_answer)
+print(prompt)
 
 
