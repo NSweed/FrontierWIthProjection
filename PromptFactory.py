@@ -58,6 +58,10 @@ class PromptFactory:
         return f"{PROBLEM_REPROJECTION_PREFIX} {projected_answer}"
 
 
+    @staticmethod
+    def get_grading_prompt(problem, rubric, answer):
+        return GRADING_TEMPLATE.format(problem, rubric, answer)
+
 
 
 import json
