@@ -3,6 +3,7 @@ from ChatSession import  ChatSession
 import os
 from openai import OpenAI
 import time
+from random import shuffle
 GRADING_MODEL= "gpt-5"
 
 FULL_PATH = ""
@@ -102,8 +103,8 @@ def get_problem_reprojection(chat, problem_projection, save_suffix, force_search
     return get_and_save_response(chat, prompt, save_suffix, force_search=force_search)
 
 
-def full_pipeline(problem_d, id_count,provider, model_name, api_key ="", grade_projected = True,
-    grade_regular = True, grade_reprojected = True, clean_chat = False, keep_chat = True, web_enabled = False,
+def full_pipeline(problem_d, id_count, provider, model_name, api_key ="", grade_projected = True,
+                  grade_default = True, grade_reprojected = True, clean_chat = False, keep_chat = True, web_enabled = False,
                   high_reasoning = True, force_search = False):
     #small definitions
     subject = problem_d["subject"]
@@ -180,7 +181,7 @@ def full_pipeline(problem_d, id_count,provider, model_name, api_key ="", grade_p
             #reprojection_hist_path = os.path.join("FullChats", f"reprojection_grading_{save_suffix}")
 
     #grading regular:
-    if grade_regular:
+    if grade_default:
         chat = ChatSession(
             provider=provider,
             model_name=model_name,
@@ -304,17 +305,20 @@ def grade_answers_from_directory(dir_name, problem_d, save_prefix):
 
 # 2. Start the conversation
 type_to_id = {"physics" :0, "chemistry":0, "biology":0}
-id_start = 100
-
-sampled_problems = sample_different_problem_types(2, problems)
+id_start = 200
+shuffle(problems)
+sampled_problems = sample_different_problem_types(3, problems)
 # ,
 options = [ ("anthropic", "claude-opus-4-5-20251101", True),
            ("anthropic", "claude-opus-4-5-20251101", False), ("openai", "gpt-5.2", False), ("openai", "gpt-5.2", True)]
-# options = [("anthropic", "claude-opus-4-5-20251101", True)]
+options = [("anthropic", "claude-opus-4-5-20251101", True)]
 
-options = [ ("openai", "gpt-5.2", True)]
+# options = [ ("openai", "gpt-5.2", True)]
 
 
+
+dir = os.path.join("Nikki Answers", "ours_runs", "same_claude_chat")
+dir = "Nikki Answers"
 
 
 api_key=os.environ.get("OPENAI_API_KEY")
@@ -326,6 +330,8 @@ chem_problem = problems[30]
 model = "claude-opus-4-5-20251101"
 provider = "anthropic"
 
+# grade_answers_from_directory(dir, chem_problem,  "nikki_answers")
+
 # for i in range(5):
 #     print(f"Starting with #{i}")
 #     full_pipeline(chem_problem,  i+id_start, provider =provider, model_name=model, grade_projected=True, grade_reprojected=True,
@@ -333,14 +339,14 @@ provider = "anthropic"
 #     print(f"Finished with #{i}")
 
 
-# for option in options:
-#     web_enables = option[2]
-#     provider = option[0]
-#     model = option[1]
-#     for i,problem_d in enumerate(problems[30:31]):
-#         print(f"Starting with #{i}")
-#         full_pipeline(problem_d,  i+id_start, provider =provider, model_name=model, grade_projected=False, grade_reprojected=False,
-#                       grade_regular=True, keep_chat=True, clean_chat=True, api_key=api_key, web_enabled=web_enables, force_search = web_enables)
-#         print(f"Finished with #{i}")
+for option in options:
+    web_enables = option[2]
+    provider = option[0]
+    model = option[1]
+    for i,problem_d in enumerate(sampled_problems):
+        print(f"Starting with #{i}")
+        full_pipeline(problem_d, i + id_start, provider =provider, model_name=model, grade_projected=True, grade_reprojected=True,
+                      grade_default=True, keep_chat=True, clean_chat=True, api_key=api_key, web_enabled=web_enables, force_search = web_enables)
+        print(f"Finished with #{i}")
 
 # get_problem_projection_pipeline(problems[0], id_count, provider ="openai", model_name="gpt-5-nano")
