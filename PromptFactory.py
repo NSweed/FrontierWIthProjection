@@ -60,7 +60,7 @@ class PromptFactory:
 
     @staticmethod
     def get_grading_prompt(problem, rubric, answer):
-        return GRADING_TEMPLATE.format(problem, rubric, answer)
+        return GRADING_TEMPLATE.format(problem=problem, rubric=rubric, answer=answer)
 
 
 
@@ -75,13 +75,13 @@ with open(test_json_path, "r", encoding="utf-8") as f:
     problem_dicts = [json.loads(line) for line in f if line.strip()]
 
 
-prompt = PromptFactory.get_projection_prompt(problem_dicts[30])
+# prompt = PromptFactory.get_projection_prompt(problem_dicts[30])
+# # print(prompt)
+# prompt = PromptFactory.get_projection_answer_prompt()
+# # print(prompt)
+#
+# projected_answer = open("question_index_30/ours_runs/same_claude_chat/projected_pipeline_run_5.txt", encoding="utf-8").read()
+# prompt = PromptFactory.get_reprojection_prompt(projected_answer)
 # print(prompt)
-prompt = PromptFactory.get_projection_answer_prompt()
-# print(prompt)
-
-projected_answer = open("question_index_30/ours_runs/same_claude_chat/projected_pipeline_run_5.txt", encoding="utf-8").read()
-prompt = PromptFactory.get_reprojection_prompt(projected_answer)
-print(prompt)
 
 

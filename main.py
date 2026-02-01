@@ -44,7 +44,7 @@ with open("test.json", "r", encoding="utf-8") as f:
 
 
 
-def grade_answer_from_file(fname, problem_d, save_prefix):
+def grade_answer_from_file(grading_prompt_func,fname, problem_d, save_prefix):
     from pathlib import Path
     filename = Path(fname).name
     with open(fname, encoding="utf-8") as f:
@@ -54,7 +54,7 @@ def grade_answer_from_file(fname, problem_d, save_prefix):
         rubric = problem_d["answer"]
         default_grade_save_path = os.path.join("Responses", "Grading from files", f"{save_prefix}_high_reasoning_{filename}")
         default_grade_full_chat_path = os.path.join("FullChats", f"{save_prefix}_file_grading_{filename}")
-        grade_answer_high_reasoning(problem, answer, rubric, default_grade_save_path,
+        grade_answer_high_reasoning(grading_prompt_func,problem, answer, rubric, default_grade_save_path,
                                     default_grade_full_chat_path)
 
 def get_and_save_response(chat, prompt, save_path, force_search = False):
@@ -308,11 +308,11 @@ def sample_different_problem_types(n, problems):
     return problems_to_return
 
 
-def grade_answers_from_directory(dir_name, problem_d, save_prefix):
+def grade_answers_from_directory(grading_prompt_func,dir_name, problem_d, save_prefix):
     for file in os.listdir(dir_name):
         file_path = os.path.join(dir_name, file)
         print(f"starting with file {file_path}")
-        grade_answer_from_file(file_path, problem_d, save_prefix)
+        grade_answer_from_file(grading_prompt_func,file_path, problem_d, save_prefix)
 
 # 1. Setup your session (Change "openai" to "claude" or "gemini" as needed)
 
@@ -343,7 +343,7 @@ chem_problem = problems[30]
 model = "claude-opus-4-5-20251101"
 provider = "anthropic"
 
-# grade_answers_from_directory(dir, chem_problem,  "nikki_answers")
+grade_answers_from_directory(PromptFactory.get_grading_prompt, dir, chem_problem,  "nikki_answers")
 
 # for i in range(5):
 #     print(f"Starting with #{i}")
@@ -366,10 +366,10 @@ pipeline_args = {
     "model_name": model
 }
 
-
-for i,problem_d in enumerate(sampled_problems):
-    print(f"Starting with #{i}")
-    full_pipeline(problem_d, i + id_start, **pipeline_args)
-    print(f"Finished with #{i}")
+#
+# for i,problem_d in enumerate(sampled_problems):
+#     print(f"Starting with #{i}")
+#     full_pipeline(problem_d, i + id_start, **pipeline_args)
+#     print(f"Finished with #{i}")
 
 # get_problem_projection_pipeline(problems[0], id_count, provider ="openai", model_name="gpt-5-nano")
